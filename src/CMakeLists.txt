@@ -38,10 +38,14 @@ PKG_CONFIG_USE_DEPENDENCY(${LIBRARY_NAME} hpp-fcl)
 PKG_CONFIG_USE_DEPENDENCY(${LIBRARY_NAME} eigen3)
 
 IF (ASSIMP_FOUND)
+  SEARCH_FOR_BOOST ()
   ADD_EXECUTABLE(hpp-check-mesh-file
     check_mesh_file.cc)
   PKG_CONFIG_USE_DEPENDENCY(hpp-check-mesh-file assimp)
   TARGET_LINK_LIBRARIES(hpp-check-mesh-file ${LIBRARY_NAME})
+  FOREACH (LIB ${Boost_LIBRARIES})
+    TARGET_LINK_LIBRARIES (hpp-check-mesh-file ${LIB})
+  ENDFOREACH ()
   INSTALL(TARGETS hpp-check-mesh-file DESTINATION bin)
 ENDIF (ASSIMP_FOUND)
 
