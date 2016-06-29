@@ -116,6 +116,19 @@ namespace hpp {
 			       const size_type& indexVelocity,
 			       vectorOut_t result) const = 0;
 
+      /// Test that two configurations are close
+      ///
+      /// \param q1 first configuration,
+      /// \param q2 second configuration,
+      /// \param indexConfig index of first component of q corresponding to
+      ///        the joint.
+      /// \param eps numerical threshold
+      /// \return true if the configurations are closer than the numerical
+      /// threshold
+      virtual bool isApprox (ConfigurationIn_t q1, ConfigurationIn_t q2,
+			     const size_type& indexConfig,
+			     const value_type& eps) const = 0;
+
       /// Normalize configuration of joint
       virtual void normalize (const size_type& index,
 			      ConfigurationOut_t result) const = 0;
@@ -182,6 +195,15 @@ namespace hpp {
 			       const size_type& indexConfig,
 			       const size_type& indexVelocity,
 			       vectorOut_t result) const;
+      /// \param q2 second configuration,
+      /// \param indexConfig index of first component of q corresponding to
+      ///        the joint.
+      /// \param eps numerical threshold
+      /// \return true if the configurations are closer than the numerical
+      /// threshold
+      virtual bool isApprox (ConfigurationIn_t q1, ConfigurationIn_t q2,
+			     const size_type& indexConfig,
+			     const value_type& eps) const;
       /// Normalize configuration of joint
       virtual void normalize (const size_type& index,
 			      ConfigurationOut_t result) const;
@@ -239,6 +261,15 @@ namespace hpp {
 			       const size_type& indexConfig,
 			       const size_type& indexVelocity,
 			       vectorOut_t result) const;
+      /// \param q2 second configuration,
+      /// \param indexConfig index of first component of q corresponding to
+      ///        the joint.
+      /// \param eps numerical threshold
+      /// \return true if the configurations are closer than the numerical
+      /// threshold
+      virtual bool isApprox (ConfigurationIn_t q1, ConfigurationIn_t q2,
+			     const size_type& indexConfig,
+			     const value_type& eps) const;
       /// Normalize configuration of joint
       virtual void normalize (const size_type& index,
 			      ConfigurationOut_t result) const;
@@ -305,6 +336,15 @@ namespace hpp {
 			       const size_type& indexVelocity,
 			       vectorOut_t result) const = 0;
 
+      /// \param q2 second configuration,
+      /// \param indexConfig index of first component of q corresponding to
+      ///        the joint.
+      /// \param eps numerical threshold
+      /// \return true if the configurations are closer than the numerical
+      /// threshold
+      virtual bool isApprox (ConfigurationIn_t q1, ConfigurationIn_t q2,
+			     const size_type& indexConfig,
+			     const value_type& eps) const;
       /// Normalize configuration of joint
       virtual void normalize (const size_type& index,
 			      ConfigurationOut_t result) const;
@@ -336,6 +376,15 @@ namespace hpp {
 			 const size_type& indexConfig,
 			 const size_type& indexVelocity,
 			 vectorOut_t result) const;
+	/// \param q2 second configuration,
+	/// \param indexConfig index of first component of q corresponding to
+	///        the joint.
+	/// \param eps numerical threshold
+	/// \return true if the configurations are closer than the numerical
+	/// threshold
+	virtual bool isApprox (ConfigurationIn_t q1, ConfigurationIn_t q2,
+			       const size_type& indexConfig,
+			       const value_type& eps) const;
 	/// Normalize configuration of joint
 	virtual void normalize (const size_type& index,
 			      ConfigurationOut_t result) const;
@@ -366,6 +415,15 @@ namespace hpp {
 			 const size_type& indexConfig,
 			 const size_type& indexVelocity,
 			 vectorOut_t result) const;
+	/// \param q2 second configuration,
+	/// \param indexConfig index of first component of q corresponding to
+	///        the joint.
+	/// \param eps numerical threshold
+	/// \return true if the configurations are closer than the numerical
+	/// threshold
+	virtual bool isApprox (ConfigurationIn_t q1, ConfigurationIn_t q2,
+			       const size_type& indexConfig,
+			       const value_type& eps) const;
 	/// Normalize configuration of joint
 	virtual void normalize (const size_type& index,
 				ConfigurationOut_t result) const;
@@ -425,6 +483,15 @@ namespace hpp {
 			       const size_type& indexVelocity,
 			       vectorOut_t result) const;
 
+      /// \param q2 second configuration,
+      /// \param indexConfig index of first component of q corresponding to
+      ///        the joint.
+      /// \param eps numerical threshold
+      /// \return true if the configurations are closer than the numerical
+      /// threshold
+      virtual bool isApprox (ConfigurationIn_t q1, ConfigurationIn_t q2,
+			     const size_type& indexConfig,
+			     const value_type& eps) const;
       /// Normalize configuration of joint
       virtual void normalize (const size_type& index,
 			      ConfigurationOut_t result) const;

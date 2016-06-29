@@ -147,6 +147,14 @@ namespace hpp {
     {
     }
 
+    bool AnchorJointConfig::isApprox (ConfigurationIn_t q1,
+				      ConfigurationIn_t q2,
+				      const size_type& indexConfig,
+				      const value_type& eps) const
+    {
+      return true;
+    }
+
     /// Normalize configuration of joint
     void AnchorJointConfig::normalize (const size_type&,
 				       ConfigurationOut_t) const
@@ -295,6 +303,16 @@ namespace hpp {
       result.segment <3> (indexVelocity) = angleAxis.angle () * angleAxis.axis ();
     }
 
+    bool SO3JointConfig::isApprox (ConfigurationIn_t q1, ConfigurationIn_t q2,
+				   const size_type& indexConfig,
+				   const value_type& eps) const
+    {
+      return (q1.segment <4> (indexConfig).isApprox
+	      (q2.segment <4> (indexConfig)) ||
+	      q1.segment <4> (indexConfig).isApprox
+	      (-q2.segment <4> (indexConfig)));
+    }
+
     /// Normalize configuration of joint
     void SO3JointConfig::normalize (const size_type& index,
 				    ConfigurationOut_t result) const
@@ -371,6 +389,15 @@ namespace hpp {
       result.segment <dimension> (indexVelocity) =
 	q1.segment <dimension> (indexConfig) -
 	q2.segment <dimension> (indexConfig);
+    }
+
+    template <size_type dimension>
+    bool TranslationJointConfig <dimension>::isApprox
+    (ConfigurationIn_t q1, ConfigurationIn_t q2,
+     const size_type& indexConfig, const value_type& eps) const
+    {
+      return q1.segment <dimension> (indexConfig).isApprox
+	(q2.segment <dimension> (indexConfig));
     }
 
     /// Normalize configuration of joint
@@ -481,6 +508,15 @@ namespace hpp {
 	result [indexVelocity] = atan2 (s1*c2 - s2*c1, c1*c2 + s1*s2);
       }
 
+      bool UnBounded::isApprox (ConfigurationIn_t q1,
+				ConfigurationIn_t q2,
+				const size_type& indexConfig,
+				const value_type& eps) const
+      {
+	return q1.segment <2> (indexConfig).isApprox
+	  (q2.segment <2> (indexConfig));
+      }
+
       /// Normalize configuration of joint
       void UnBounded::normalize (const size_type& index,
 				 ConfigurationOut_t result) const
@@ -547,6 +583,23 @@ namespace hpp {
 				vectorOut_t result) const
       {
 	  result [indexVelocity] = q1 [indexConfig] - q2 [indexConfig];
+      }
+
+      /// Test that two configurations are close
+      ///
+      /// \param q1 first configuration,
+      /// \param q2 second configuration,
+      /// \param indexConfig index of first component of q corresponding to
+      ///        the joint.
+      /// \param eps numerical threshold
+      /// \return true if the configurations are closer than the numerical
+      /// threshold
+      bool Bounded::isApprox (ConfigurationIn_t q1,
+			      ConfigurationIn_t q2,
+			      const size_type& indexConfig,
+			      const value_type& eps) const
+      {
+	return (fabs (q1 [indexConfig] - q2 [indexConfig]) < eps);
       }
 
       /// Normalize configuration of joint

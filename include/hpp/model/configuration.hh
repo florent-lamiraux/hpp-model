@@ -105,6 +105,29 @@ namespace hpp {
       result.tail (dim) = q2.tail (dim) - q1.tail (dim);
     }
 
+    /// Test that two configurations are close
+    ///
+    /// \param robot robot that describes the kinematic chain
+    /// \param q1 first configuration,
+    /// \param q2 second configuration,
+    /// \param eps numerical threshold
+    /// \return true if the configurations are closer than the numerical
+    /// threshold
+    bool inline isApprox (const DevicePtr_t& robot, ConfigurationIn_t q1,
+			  ConfigurationIn_t q2, value_type eps)
+    {
+      const JointVector_t& jv (robot->getJointVector ());
+      for (model::JointVector_t::const_iterator itJoint = jv.begin ();
+	   itJoint != jv.end (); itJoint++) {
+	size_type indexConfig = (*itJoint)->rankInConfiguration ();
+	if (!(*itJoint)->configuration ()->isApprox (q1, q2, indexConfig, eps))
+	  return false;
+      }
+      const size_type& dim = robot->extraConfigSpace().dimension();
+      if (!q2.tail (dim).isApprox (q1.tail (dim), eps)) return false;
+      return true;
+    }
+
     /// Distance between two configuration.
     ///
     /// \param robot robot that describes the kinematic chain
